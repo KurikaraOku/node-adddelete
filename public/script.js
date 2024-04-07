@@ -66,10 +66,11 @@ const getSupplies = () => {
           modalTitle.appendChild(eLink);
   
           const dLink = document.createElement("a");
-          dLink.innerHTML = " &#9249;";
+          dLink.innerHTML = " &#120143;";
           modalTitle.append(dLink);
           dLink.id = "delete-link";
-  
+          dLink.onclick = deleteCraft.bind(this, craft);
+
           modalSupplies.innerHTML = "";
           craft.supplies.forEach((supply) => {
             const li = document.createElement("li");
@@ -88,6 +89,25 @@ const getSupplies = () => {
     }
   };
   
+  const deleteCraft = async(craft) =>{
+    let response = await fetch(`/api/crafts/${craft._id}`,{
+      method:"DELETE",
+      headers:{
+        "Content-Type":"application/json;charset=utf-8",
+      },
+    });
+  
+    if(response.status!= 200){
+      console.log("Error deleting");
+      return;
+    }
+  
+    let result = await response.json();
+    document.getElementById("add-craft-modal").style.display = "none";
+    resetForm();
+    location.reload();
+  };
+
   const addCraft = async (e) => {
     e.preventDefault();
     const form = document.getElementById("add-edit-craft-form");
