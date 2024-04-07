@@ -89,24 +89,24 @@ const getSupplies = () => {
     }
   };
   
-  const deleteCraft = async(craft) =>{
-    let response = await fetch(`/api/crafts/${craft._id}`,{
-      method:"DELETE",
-      headers:{
-        "Content-Type":"application/json;charset=utf-8",
-      },
-    });
-  
-    if(response.status!= 200){
-      console.log("Error deleting");
-      return;
+  const deleteCraft = async (craft) => {
+    const confirmed = confirm("Are you sure you want to delete this craft?");
+    if (confirmed) {
+        let response = await fetch(`/api/crafts/${craft._id}`, {
+            method: "DELETE",
+        });
+
+        if (response.status != 200) {
+            console.log("Error deleting");
+            return;
+        }
+
+        let result = await response.json();
+        document.getElementById("add-craft-modal").style.display = "none";
+        resetForm();
+        location.reload();
     }
-  
-    let result = await response.json();
-    document.getElementById("add-craft-modal").style.display = "none";
-    resetForm();
-    location.reload();
-  };
+};
 
   const addCraft = async (e) => {
     e.preventDefault();
