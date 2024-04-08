@@ -8,7 +8,7 @@ const getSupplies = () => {
   };
   
   const populateEditForm = (craft) => {
-    console.log("Craft Object:", craft); // Log the Craft object
+    console.log("Craft Object:", craft); 
     const form = document.getElementById("add-edit-craft-form");
     form._id.value = craft._id || "";
     form.name.value = craft.name;
@@ -115,7 +115,7 @@ const getSupplies = () => {
     formData.append("supplies", getSupplies());
     let response;
 
-    const craftId = form.querySelector('input[name="_id"]').value; // Get craft ID from hidden input
+    const craftId = form.querySelector('input[name="_id"]').value; 
 
     if (!craftId || craftId == "-1") {
         response = await fetch("/api/crafts", {
@@ -123,7 +123,7 @@ const getSupplies = () => {
             body: formData,
         });
     } else {
-        response = await fetch(`/api/crafts/${craftId}`, { // Use craftId
+        response = await fetch(`/api/crafts/${craftId}`, { 
             method: "PUT",
             body: formData,
         });
@@ -135,7 +135,7 @@ const getSupplies = () => {
         
     }
 
-    const craft = await response.json(); // Get the updated craft object from the response
+    const craft = await response.json(); 
 
 
 

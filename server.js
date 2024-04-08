@@ -320,9 +320,6 @@ crafts[22] = {
         ]
 };
 
-
-
-
 app.get("/api/crafts", (req, res) => {
     res.send(crafts);
 });
